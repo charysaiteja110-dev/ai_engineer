@@ -4,6 +4,8 @@ export const PERSONAL_INFO = {
   name: 'Sai Teja Chary',
   status: 'B.Tech 1st Semester Student',
   headline: 'Aspiring AI Engineer | Python & Web Development Beginner | Gen AI Enthusiast',
+  // Permanent profile photo: defaults to /profile.jpg in public folder
+  photoUrl: '/profile.jpg',
   shortIntro:
     'I’m a B.Tech student beginning my journey in Artificial Intelligence, Python, and Web Development. I enjoy building practical projects, participating in hackathons and ideathons, and continuously exploring how technology and Generative AI can solve real-world problems.',
   careerGoal:
