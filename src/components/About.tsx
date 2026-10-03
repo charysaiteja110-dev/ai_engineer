@@ -1,8 +1,10 @@
 import React from 'react';
-import { Target, BookOpen, Compass, Code, Cpu, Award } from 'lucide-react';
+import { Target, BookOpen, Compass, Code, Cpu, Award, Camera } from 'lucide-react';
 import { PERSONAL_INFO } from '../data/portfolioData';
+import { useProfilePhoto } from '../context/PhotoContext';
 
 export const About: React.FC = () => {
+  const { photoUrl, openPhotoModal } = useProfilePhoto();
   return (
     <section id="about" className="py-20 bg-white border-y border-neutral-200/80">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -101,20 +103,41 @@ export const About: React.FC = () => {
               </p>
             </div>
 
-            {/* Workspace & Study Habit Context */}
-            <div className="relative rounded-xl overflow-hidden border border-neutral-200 bg-neutral-100">
-              <img
-                src="/src/assets/images/student_tech_workspace_1790679403871.jpg"
-                alt="Sai Teja Chary student coding workspace with laptop and notebook"
-                referrerPolicy="no-referrer"
-                className="w-full h-44 object-cover"
-                onError={(e) => {
-                  (e.currentTarget as HTMLElement).style.display = 'none';
-                }}
-              />
-              <div className="p-3 bg-[#FAF9F6] border-t border-neutral-200 text-xs text-neutral-500 flex items-center justify-between">
-                <span>Daily study &amp; project experimentation</span>
-                <span className="font-mono text-[11px]">2026 Batch</span>
+            {/* Card 3: Developer Profile Portrait */}
+            <div className="relative rounded-2xl overflow-hidden border border-neutral-200 bg-[#FAF9F6] shadow-xs group">
+              <div className="relative aspect-[4/3] w-full overflow-hidden bg-neutral-100">
+                <img
+                  src={photoUrl}
+                  alt={PERSONAL_INFO.name}
+                  className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-300"
+                  onError={(e) => {
+                    (e.currentTarget as HTMLImageElement).src = '/profile.jpg';
+                  }}
+                />
+                <button
+                  type="button"
+                  onClick={openPhotoModal}
+                  className="absolute top-3 right-3 px-2.5 py-1.5 rounded-lg bg-black/60 hover:bg-black/80 text-white text-[11px] font-medium backdrop-blur-md transition-colors flex items-center gap-1.5 shadow-sm"
+                  title="Update profile photo"
+                >
+                  <Camera className="w-3.5 h-3.5" />
+                  <span>Update Photo</span>
+                </button>
+              </div>
+              <div className="p-4 bg-white border-t border-neutral-200">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h4 className="text-sm font-bold text-neutral-900">
+                      {PERSONAL_INFO.name}
+                    </h4>
+                    <p className="text-xs text-neutral-500 mt-0.5">
+                      B.Tech 1st Semester · Aspiring AI Engineer
+                    </p>
+                  </div>
+                  <span className="text-[11px] font-mono text-neutral-400">
+                    2026 Batch
+                  </span>
+                </div>
               </div>
             </div>
           </div>

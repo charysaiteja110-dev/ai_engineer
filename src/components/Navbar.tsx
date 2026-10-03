@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { Menu, X, ArrowUpRight } from 'lucide-react';
 import { PERSONAL_INFO } from '../data/portfolioData';
+import { useProfilePhoto } from '../context/PhotoContext';
 
 export const Navbar: React.FC = () => {
+  const { photoUrl, openPhotoModal } = useProfilePhoto();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navLinks = [
@@ -26,17 +28,34 @@ export const Navbar: React.FC = () => {
   return (
     <header className="sticky top-0 z-40 w-full border-b border-neutral-200/80 bg-[#FBFBFA]/90 backdrop-blur-md transition-all">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        {/* Zone 1: Single text element wordmark */}
-        <a
-          href="#home"
-          onClick={(e) => {
-            e.preventDefault();
-            handleScroll('#home');
-          }}
-          className="text-base sm:text-lg font-bold tracking-tight text-neutral-900 hover:text-neutral-700 transition-colors"
-        >
-          {PERSONAL_INFO.name}
-        </a>
+        {/* Zone 1: Single text element wordmark + avatar */}
+        <div className="flex items-center gap-2.5">
+          <button
+            type="button"
+            onClick={openPhotoModal}
+            className="relative w-8 h-8 rounded-full overflow-hidden border border-neutral-300 ring-1 ring-neutral-200/80 hover:ring-blue-500 transition-all cursor-pointer group shrink-0"
+            title="Update profile photo"
+          >
+            <img
+              src={photoUrl}
+              alt={PERSONAL_INFO.name}
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform"
+              onError={(e) => {
+                (e.currentTarget as HTMLImageElement).src = '/profile.jpg';
+              }}
+            />
+          </button>
+          <a
+            href="#home"
+            onClick={(e) => {
+              e.preventDefault();
+              handleScroll('#home');
+            }}
+            className="text-base sm:text-lg font-bold tracking-tight text-neutral-900 hover:text-neutral-700 transition-colors"
+          >
+            {PERSONAL_INFO.name}
+          </a>
+        </div>
 
         {/* Zone 2: Clean text navigation links */}
         <nav className="hidden md:flex items-center gap-7 text-sm font-medium text-neutral-600">

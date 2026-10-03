@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { ArrowDown, ArrowUpRight, Play, Terminal, Sparkles, CheckCircle2 } from 'lucide-react';
+import { ArrowDown, ArrowUpRight, Play, Terminal, Sparkles, CheckCircle2, Camera } from 'lucide-react';
 import { PERSONAL_INFO } from '../data/portfolioData';
+import { useProfilePhoto } from '../context/PhotoContext';
 
 const CODE_SNIPPETS = [
   {
@@ -43,6 +44,7 @@ print(f"Student Average: {average:.1f}% | Tier: Distinction")`,
 ];
 
 export const Hero: React.FC = () => {
+  const { photoUrl, openPhotoModal } = useProfilePhoto();
   const [activeSnippetIdx, setActiveSnippetIdx] = useState(0);
   const [isExecuting, setIsExecuting] = useState(false);
   const [hasExecuted, setHasExecuted] = useState(false);
@@ -64,11 +66,49 @@ export const Hero: React.FC = () => {
   };
 
   return (
-    <section id="home" className="relative pt-12 pb-20 sm:pt-20 sm:pb-28 overflow-hidden">
+    <section id="home" className="relative pt-10 pb-20 sm:pt-16 sm:pb-28 overflow-hidden">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
           {/* Left Column: Typography & Intent */}
           <div className="lg:col-span-7 space-y-6">
+            {/* Student Profile Identity Card */}
+            <div className="flex items-center gap-3.5 p-2.5 pr-4 bg-[#FAF9F6] border border-neutral-200/90 rounded-2xl w-fit shadow-xs group">
+              <div className="relative">
+                <div className="w-13 h-13 sm:w-14 sm:h-14 rounded-xl overflow-hidden border border-neutral-200 shadow-xs ring-1 ring-neutral-300/60 bg-neutral-100">
+                  <img
+                    src={photoUrl}
+                    alt={PERSONAL_INFO.name}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    onError={(e) => {
+                      (e.currentTarget as HTMLImageElement).src = '/profile.jpg';
+                    }}
+                  />
+                </div>
+                <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-500 border-2 border-white rounded-full" title="Active & learning"></span>
+              </div>
+              <div>
+                <div className="flex items-center gap-2">
+                  <h2 className="text-sm sm:text-base font-bold text-neutral-900 tracking-tight">
+                    {PERSONAL_INFO.name}
+                  </h2>
+                  <button
+                    type="button"
+                    onClick={openPhotoModal}
+                    className="text-[11px] font-medium text-neutral-500 hover:text-blue-600 flex items-center gap-1 transition-colors px-1.5 py-0.5 rounded hover:bg-neutral-200/60"
+                    title="Change or upload photo"
+                  >
+                    <Camera className="w-3 h-3" />
+                    <span className="hidden sm:inline">Change Photo</span>
+                  </button>
+                </div>
+                <div className="text-xs text-neutral-500 flex items-center gap-1.5 mt-0.5">
+                  <span>B.Tech 1st Sem</span>
+                  <span aria-hidden="true">·</span>
+                  <span className="text-blue-700 font-medium">Aspiring AI Engineer</span>
+                </div>
+              </div>
+            </div>
+
             {/* Small label: unboxed text with typographic separator */}
             <div className="inline-flex items-center gap-2 text-xs font-semibold text-neutral-600 tracking-wide uppercase">
               <span className="w-1.5 h-1.5 rounded-full bg-blue-600"></span>

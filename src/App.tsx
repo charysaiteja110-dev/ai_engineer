@@ -14,12 +14,15 @@ import { LearningJourney } from './components/LearningJourney';
 import { BuildingInPublic } from './components/BuildingInPublic';
 import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
+import { PhotoProvider } from './context/PhotoContext';
+import { PhotoModal } from './components/PhotoModal';
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-[#FBFBFA] text-[#111111] flex flex-col font-sans selection:bg-blue-100 selection:text-blue-900">
-      {/* Top Navigation */}
-      <Navbar />
+    <PhotoProvider>
+      <div className="min-h-screen bg-[#FBFBFA] text-[#111111] flex flex-col font-sans selection:bg-blue-100 selection:text-blue-900">
+        {/* Top Navigation */}
+        <Navbar />
 
       {/* Main Content Area */}
       <main className="flex-1">
@@ -47,9 +50,13 @@ export default function App() {
         {/* Let's Connect (Contact & Socials) */}
         <Contact />
       </main>
-
+ 
       {/* Minimal Footer */}
       <Footer />
+
+      {/* Global Photo Customizer Modal */}
+      <PhotoModal />
     </div>
-  );
+  </PhotoProvider>
+);
 }

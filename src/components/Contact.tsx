@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { Linkedin, Github, ExternalLink, Send, Copy, Check, MessageSquare } from 'lucide-react';
 import { PERSONAL_INFO } from '../data/portfolioData';
+import { useProfilePhoto } from '../context/PhotoContext';
 
 export const Contact: React.FC = () => {
+  const { photoUrl } = useProfilePhoto();
   const [visitorName, setVisitorName] = useState('');
   const [visitorRole, setVisitorRole] = useState('Student / Peer');
   const [visitorMessage, setVisitorMessage] = useState('');
@@ -25,8 +27,20 @@ export const Contact: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
           {/* Left Column: Direct Links & Intro */}
           <div className="lg:col-span-6 space-y-6">
-            <div className="text-xs font-semibold text-blue-600 uppercase tracking-wider">
-              Get in Touch
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-full overflow-hidden border border-neutral-200 ring-1 ring-neutral-300 shadow-xs shrink-0">
+                <img
+                  src={photoUrl}
+                  alt={PERSONAL_INFO.name}
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    (e.currentTarget as HTMLImageElement).src = '/profile.jpg';
+                  }}
+                />
+              </div>
+              <div className="text-xs font-semibold text-blue-600 uppercase tracking-wider">
+                Get in Touch · Sai Teja Chary
+              </div>
             </div>
             
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-neutral-900">
